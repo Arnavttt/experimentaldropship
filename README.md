@@ -6,8 +6,8 @@ A clean, fully customizable ecommerce storefront built with plain HTML, CSS, and
 
 ## Quick Start
 
-1. Open `store/index.html` in your browser to see the customer storefront.
-2. Open `store/admin.html` to access the admin/dev panel.
+1. Open `index.html` in your browser to see the customer storefront.
+2. Open `admin.html` to access the admin/dev panel.
 3. Everything saves automatically in your browser's `localStorage`.
 
 ---
@@ -15,7 +15,6 @@ A clean, fully customizable ecommerce storefront built with plain HTML, CSS, and
 ## File Structure
 
 ```
-store/
 ├── index.html          ← Customer-facing storefront
 ├── admin.html          ← Admin / dev panel
 ├── store.css           ← All storefront styles (light theme)
@@ -31,7 +30,7 @@ store/
 
 ## Admin / Dev Panel
 
-**URL:** `store/admin.html`
+**URL:** `admin.html`
 
 **Default password:** `admin123`
 
@@ -93,7 +92,7 @@ store/
 
 ## Customizing the Store Name
 
-1. Open `store/admin.html`
+1. Open `admin.html`
 2. Go to the **Settings** tab
 3. Change **Store Name** and **Logo Text**
 4. Click **Save Settings**
@@ -112,7 +111,7 @@ In the **Products** tab, edit any product and paste a full image URL (e.g. from 
 1. Push this repo to GitHub
 2. Go to Settings → Pages
 3. Set source to `main` branch, root `/`
-4. Your store will be live at `https://yourusername.github.io/yourrepo/store/`
+4. Your store will be live at `https://yourusername.github.io/yourrepo/`
 
 ---
 
