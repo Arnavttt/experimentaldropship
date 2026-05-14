@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Setup Co.</title>
+  <meta name="description" content="Student-run store for desk organization, planners, and dorm essentials.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="store.css">
+</head>
+<body>
+
+<!-- ── Announcement Bar ───────────────────────────────────── -->
+<div id="s-announce-bar" class="s-announce-bar"></div>
+
+<!-- ── Top Navigation ────────────────────────────────────── -->
+<nav class="s-topnav">
+  <div class="s-container s-topnav-inner">
+
+    <!-- Hamburger (mobile only) -->
+    <button class="s-hamburger" id="s-hamburger" aria-label="Open menu">☰</button>
+
+    <!-- Logo -->
+    <a class="s-topnav-logo" href="index.html" id="s-logo">Student Setup Co.</a>
+
+    <!-- Search bar -->
+    <div class="s-topnav-search">
+      <div class="s-search-bar" id="s-search-bar" role="button" tabindex="0" aria-label="Search products">
+        <span class="s-search-icon">🔍</span>
+        <span class="s-search-placeholder">Search products…</span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="s-topnav-actions">
+      <a class="s-topnav-link s-sale-link" href="#"
+         onclick="State.ui.searchTag='bestseller'; openSearch(); return false;">Sale</a>
+      <a class="s-topnav-link" href="#"
+         onclick="State.ui.searchTag='new'; openSearch(); return false;">New &amp; Trending</a>
+      <button class="s-cart-btn" id="s-cart-btn" aria-label="Open cart">
+        🛒
+        <span class="s-cart-count" id="s-cart-count" hidden>0</span>
+      </button>
+      <button class="s-topnav-signin">Sign In</button>
+    </div>
+  </div>
+
+  <!-- Category links (desktop) -->
+  <div class="s-container">
+    <div class="s-cat-nav" id="s-cat-nav"></div>
+  </div>
+
+  <!-- Mobile dropdown menu -->
+  <div class="s-mobile-menu" id="s-mobile-menu">
+    <div class="s-container" id="s-mobile-cats"></div>
+  </div>
+</nav>
+
+<!-- ── Hero Banner ────────────────────────────────────────── -->
+<section class="s-hero">
+  <div class="s-container s-hero-inner">
+    <div class="s-hero-text">
+      <h1 id="s-hero-heading" class="s-hero-heading">Upgrade Your Study Space</h1>
+      <p id="s-hero-subtitle" class="s-hero-subtitle">
+        Simple organizers, calendars, and desk essentials made for students.
+      </p>
+      <a id="s-hero-cta" class="s-btn s-hero-btn" href="#shop">Shop Student Essentials</a>
+    </div>
+    <div class="s-hero-image">
+      <img src="images/placeholder.svg" alt="Student desk setup" class="s-hero-img">
+    </div>
+  </div>
+</section>
+
+<!-- ── Product Sections (rendered by store.js) ───────────── -->
+<main id="s-sections" class="s-sections-wrap" id="shop"></main>
+
+<!-- ── Trust Section ─────────────────────────────────────── -->
+<section class="s-trust">
+  <div class="s-container">
+    <div class="s-trust-row">
+      <div class="s-trust-item">
+        <span class="s-trust-icon">🎒</span>
+        <strong>Student-Run</strong>
+        <p>Built by students, for students.</p>
+      </div>
+      <div class="s-trust-item">
+        <span class="s-trust-icon">💸</span>
+        <strong>Budget-Friendly</strong>
+        <p>Priced for real student budgets.</p>
+      </div>
+      <div class="s-trust-item">
+        <span class="s-trust-icon">✅</span>
+        <strong>Tested Products</strong>
+        <p>Only products we actually use.</p>
+      </div>
+      <div class="s-trust-item">
+        <span class="s-trust-icon">🔄</span>
+        <strong>Fast Testing</strong>
+        <p>New products added regularly.</p>
+      </div>
+      <div class="s-trust-item">
+        <span class="s-trust-icon">🏫</span>
+        <strong>Made for School</strong>
+        <p>Desk, locker, and dorm essentials.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────── -->
+<footer class="s-footer">
+  <div class="s-container">
+    <div class="s-footer-grid">
+
+      <div class="s-footer-col">
+        <strong id="s-footer-name" class="s-footer-logo"></strong>
+        <p id="s-footer-about" class="s-footer-about"></p>
+        <div class="s-footer-social">
+          <a id="s-footer-ig" href="#" class="s-social-link">Instagram</a>
+          <a id="s-footer-tt" href="#" class="s-social-link">TikTok</a>
+        </div>
+      </div>
+
+      <div class="s-footer-col">
+        <strong>Quick Links</strong>
+        <nav class="s-footer-links">
+          <a href="#" onclick="State.ui.searchCategory='all'; openSearch(); return false;">Shop All</a>
+          <a href="#">About Us</a>
+          <a id="s-footer-contact" href="#"></a>
+        </nav>
+      </div>
+
+      <div class="s-footer-col">
+        <strong>Policies</strong>
+        <nav class="s-footer-links">
+          <a href="#">Shipping Policy</a>
+          <a href="#">Return Policy</a>
+          <a href="#">Privacy Policy</a>
+        </nav>
+      </div>
+
+    </div>
+
+    <div class="s-footer-bottom">
+      <p>© 2025 <span id="s-footer-name2"></span> — Student-run ecommerce project</p>
+      <a href="admin.html" class="s-admin-link">Dev Panel</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Cart Drawer ────────────────────────────────────────── -->
+<div class="s-cart-overlay" id="s-cart-overlay"></div>
+<aside class="s-cart-drawer" id="s-cart-drawer" aria-label="Shopping cart">
+  <div class="s-cart-header">
+    <h2>Your Cart</h2>
+    <button class="s-cart-close" id="s-cart-close" aria-label="Close cart">✕</button>
+  </div>
+  <div class="s-cart-list" id="s-cart-list"></div>
+  <div class="s-cart-footer">
+    <div class="s-cart-subtotal-row">
+      <span>Subtotal</span>
+      <strong id="s-cart-subtotal">$0.00</strong>
+    </div>
+    <button class="s-btn s-checkout-btn" id="s-checkout-btn">Checkout</button>
+  </div>
+</aside>
+
+<!-- ── Product Detail Modal ───────────────────────────────── -->
+<div class="s-modal-overlay" id="s-modal-overlay" role="dialog" aria-modal="true">
+  <div class="s-modal" id="s-modal">
+    <button class="s-modal-close" id="s-modal-close" aria-label="Close product details">✕</button>
+    <div id="s-modal-content"></div>
+  </div>
+</div>
+
+<!-- ── Search Overlay ─────────────────────────────────────── -->
+<div class="s-search-overlay" id="s-search-overlay" role="search">
+  <div class="s-search-overlay-inner">
+
+    <div class="s-search-top">
+      <input
+        class="s-search-input"
+        id="s-search-input"
+        type="text"
+        placeholder="Search products…"
+        autocomplete="off"
+        aria-label="Search products"
+      >
+      <button class="s-search-close" id="s-search-close" aria-label="Close search">✕</button>
+    </div>
+
+    <div class="s-search-filters">
+      <select id="s-filter-cat" class="s-filter-select" aria-label="Filter by category">
+        <option value="all">All Categories</option>
+      </select>
+
+      <div class="s-filter-price-wrap">
+        <label for="s-filter-price">Max: <span id="s-filter-price-val">$999</span></label>
+        <input type="range" id="s-filter-price" min="1" max="999" value="999"
+               class="s-price-range" aria-label="Maximum price">
+      </div>
+
+      <select id="s-filter-tag" class="s-filter-select" aria-label="Filter by tag">
+        <option value="all">All Tags</option>
+        <option value="bestseller">Best Seller</option>
+        <option value="new">New</option>
+        <option value="under15">Under $15</option>
+        <option value="studentpick">Student Pick</option>
+      </select>
+    </div>
+
+    <div id="s-search-results" class="s-search-results"></div>
+  </div>
+</div>
+
+<!-- ── Scripts (order matters: data → store) ─────────────── -->
+<script src="data.js"></script>
+<script src="store.js"></script>
+
+</body>
+</html>

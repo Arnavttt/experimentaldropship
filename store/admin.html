@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — Student Setup Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="store.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<!-- data-page="admin" tells store.js to skip storefront rendering -->
+<body data-page="admin">
+
+<!-- ── Security warning ────────────────────────────────────── -->
+<div class="a-warn-banner">
+  <strong>⚠ DEMO ONLY:</strong> The admin password is hardcoded in admin.js and visible in source code.
+  Do not use this for a real store with real customers or payment data.
+</div>
+
+<!-- ── Password gate ──────────────────────────────────────── -->
+<div id="a-auth-gate" style="display:none;">
+  <div class="a-auth-card">
+    <div class="a-auth-logo">Student Setup Co.</div>
+    <div class="a-auth-sub">Dev / Admin Panel</div>
+    <label class="a-auth-label" for="a-password-input">Password</label>
+    <input
+      class="a-auth-input"
+      id="a-password-input"
+      type="password"
+      placeholder="Enter admin password…"
+      autocomplete="current-password"
+    >
+    <button class="a-auth-btn" onclick="attemptLogin()">Sign In</button>
+    <div class="a-auth-error" id="a-login-error"></div>
+  </div>
+</div>
+
+<!-- ── Admin shell (shown after login) ───────────────────── -->
+<div id="a-shell">
+
+  <!-- Top bar -->
+  <header class="a-topbar">
+    <div class="a-topbar-left">
+      <span class="a-topbar-logo">Student Setup Co.</span>
+      <span class="a-topbar-sub">Admin Panel</span>
+    </div>
+    <div class="a-topbar-actions">
+      <a class="a-view-store-btn" href="index.html" target="_blank">View Store ↗</a>
+      <button class="a-logout-btn" onclick="logout()">Log Out</button>
+    </div>
+  </header>
+
+  <!-- Tab bar -->
+  <nav class="a-tabs">
+    <button class="a-tab active" data-tab="settings"   onclick="switchTab('settings')">⚙ Settings</button>
+    <button class="a-tab"        data-tab="theme"      onclick="switchTab('theme')">🎨 Theme</button>
+    <button class="a-tab"        data-tab="products"   onclick="switchTab('products')">📦 Products</button>
+    <button class="a-tab"        data-tab="categories" onclick="switchTab('categories')">🗂 Categories</button>
+    <button class="a-tab"        data-tab="sections"   onclick="switchTab('sections')">🏠 Homepage</button>
+    <button class="a-tab"        data-tab="promotions" onclick="switchTab('promotions')">🏷 Promotions</button>
+    <button class="a-tab"        data-tab="data"       onclick="switchTab('data')">💾 Data</button>
+  </nav>
+
+  <!-- Content area -->
+  <main class="a-content">
+
+    <!-- ── Settings panel ────────────────────────────────── -->
+    <div class="a-panel active" id="panel-settings">
+
+      <div class="a-card">
+        <div class="a-card-title">Store Identity</div>
+        <div class="a-form-grid">
+          <div class="a-field">
+            <label class="a-label" for="s-setting-storeName">Store Name</label>
+            <input class="a-input" id="s-setting-storeName" type="text" placeholder="Student Setup Co.">
+          </div>
+          <div class="a-field">
+            <label class="a-label" for="s-setting-logoText">Logo Text</label>
+            <input class="a-input" id="s-setting-logoText" type="text" placeholder="Shown in the nav bar">
+          </div>
+          <div class="a-field full">
+            <label class="a-label" for="s-setting-storeTagline">Tagline</label>
+            <input class="a-input" id="s-setting-storeTagline" type="text" placeholder="Short description of your store">
+          </div>
+        </div>
+      </div>
+
+      <div class="a-card">
+        <div class="a-card-title">Hero Banner</div>
+        <div class="a-form-grid cols-1">
+          <div class="a-field">
+            <label class="a-label" for="s-setting-heroHeading">Heading</label>
+            <input class="a-input" id="s-setting-heroHeading" type="text" placeholder="Upgrade Your Study Space">
+          </div>
+          <div class="a-field">
+            <label class="a-label" for="s-setting-heroSubtitle">Subtitle</label>
+            <input class="a-input" id="s-setting-heroSubtitle" type="text" placeholder="Short supporting line">
+          </div>
+          <div class="a-field">
+            <label class="a-label" for="s-setting-heroCta">Button Text</label>
+            <input class="a-input" id="s-setting-heroCta" type="text" placeholder="Shop Student Essentials">
+          </div>
+        </div>
+      </div>
+
+      <div class="a-card">
+        <div class="a-card-title">Announcement Bar</div>
+        <div class="a-form-grid">
+          <div class="a-field full">
+            <label class="a-label" for="s-setting-announceText">Bar Text</label>
+            <input class="a-input" id="s-setting-announceText" type="text" placeholder="🎒 Free shipping on orders over $35!">
+          </div>
+          <div class="a-field">
+            <div class="a-checkbox-row">
+              <input class="a-checkbox" id="s-setting-announceVisible" type="checkbox">
+              <label class="a-checkbox-label" for="s-setting-announceVisible">Show announcement bar</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="a-card">
+        <div class="a-card-title">Footer &amp; Social</div>
+        <div class="a-form-grid">
+          <div class="a-field full">
+            <label class="a-label" for="s-setting-footerAbout">About Text</label>
+            <textarea class="a-textarea" id="s-setting-footerAbout" placeholder="Short store description for the footer"></textarea>
+          </div>
+          <div class="a-field">
+            <label class="a-label" for="s-setting-footerContact">Contact Email</label>
+            <input class="a-input" id="s-setting-footerContact" type="email" placeholder="hello@yourstore.com">
+          </div>
+          <div class="a-field">
+            <label class="a-label" for="s-setting-footerInstagram">Instagram URL</label>
+            <input class="a-input" id="s-setting-footerInstagram" type="url" placeholder="https://instagram.com/yourpage">
+          </div>
+          <div class="a-field">
+            <label class="a-label" for="s-setting-footerTiktok">TikTok URL</label>
+            <input class="a-input" id="s-setting-footerTiktok" type="url" placeholder="https://tiktok.com/@yourpage">
+          </div>
+        </div>
+        <div class="a-btn-row">
+          <button class="a-btn a-btn-primary" onclick="saveSettings()">Save Settings</button>
+        </div>
+      </div>
+    </div><!-- /panel-settings -->
+
+    <!-- ── Theme panel ────────────────────────────────────── -->
+    <div class="a-panel" id="panel-theme">
+      <div class="a-theme-layout">
+
+        <div>
+          <div class="a-card">
+            <div class="a-card-title">Colors</div>
+            <div class="a-form-grid">
+              <div class="a-field">
+                <label class="a-label" for="t-accent">Accent Color</label>
+                <input class="a-input a-theme-input" id="t-accent" type="color">
+              </div>
+              <div class="a-field">
+                <label class="a-label" for="t-sale">Sale Color</label>
+                <input class="a-input a-theme-input" id="t-sale" type="color">
+              </div>
+              <div class="a-field">
+                <label class="a-label" for="t-star">Star Color</label>
+                <input class="a-input a-theme-input" id="t-star" type="color">
+              </div>
+              <div class="a-field">
+                <label class="a-label" for="t-bgsubtle">Subtle Background</label>
+                <input class="a-input a-theme-input" id="t-bgsubtle" type="color">
+              </div>
+              <div class="a-field">
+                <label class="a-label" for="t-herobg">Hero Background</label>
+                <input class="a-input a-theme-input" id="t-herobg" type="color">
+              </div>
+            </div>
+          </div>
+
+          <div class="a-card">
+            <div class="a-card-title">Shapes &amp; Style</div>
+            <div class="a-form-grid cols-1">
+              <div class="a-field">
+                <label class="a-label" for="t-radius">Border Radius (e.g. 10px or 4px)</label>
+                <input class="a-input a-theme-input" id="t-radius" type="text" placeholder="10px">
+              </div>
+              <div class="a-field">
+                <label class="a-label" for="t-cardstyle">Card Style</label>
+                <select class="a-select a-theme-input" id="t-cardstyle">
+                  <option value="shadow">Shadow (floating cards)</option>
+                  <option value="border">Border (outlined cards)</option>
+                  <option value="flat">Flat (no border or shadow)</option>
+                </select>
+              </div>
+            </div>
+            <div class="a-btn-row">
+              <button class="a-btn a-btn-primary" onclick="saveTheme()">Save Theme</button>
+              <span style="font-size:12px;color:#94a3b8;">Changes are previewed live in the iframe →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live preview iframe -->
+        <div>
+          <div class="a-card-title" style="margin-bottom:10px;">Live Preview</div>
+          <iframe
+            id="a-preview-frame"
+            class="a-preview-frame"
+            src="index.html"
+            title="Store preview"
+          ></iframe>
+        </div>
+
+      </div>
+    </div><!-- /panel-theme -->
+
+    <!-- ── Products panel ─────────────────────────────────── -->
+    <div class="a-panel" id="panel-products">
+      <div class="a-card">
+        <div class="a-card-title" style="display:flex;align-items:center;justify-content:space-between;">
+          Products
+          <button class="a-btn a-btn-primary a-btn-sm" onclick="openProductForm(null)">+ Add Product</button>
+        </div>
+        <div class="a-table-wrap">
+          <table class="a-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Tags</th>
+                <th>Stock</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="a-product-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- /panel-products -->
+
+    <!-- ── Categories panel ───────────────────────────────── -->
+    <div class="a-panel" id="panel-categories">
+      <div class="a-card">
+        <div class="a-card-title">Add Category</div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <input class="a-input" id="a-new-cat-name" type="text" placeholder="Category name…" style="max-width:300px;"
+                 onkeydown="if(event.key==='Enter') addCategory()">
+          <button class="a-btn a-btn-primary" onclick="addCategory()">Add</button>
+        </div>
+      </div>
+      <div class="a-card">
+        <div class="a-card-title">Manage Categories</div>
+        <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;">
+          Use the toggle to show/hide a category in the navbar. Rename or delete as needed.
+        </p>
+        <div class="a-cat-list" id="a-cat-list"></div>
+      </div>
+    </div><!-- /panel-categories -->
+
+    <!-- ── Sections (homepage) panel ─────────────────────── -->
+    <div class="a-panel" id="panel-sections">
+      <div class="a-card">
+        <div class="a-card-title">Homepage Sections</div>
+        <p style="font-size:12px;color:#94a3b8;margin-bottom:16px;">
+          Toggle sections on/off, rename them, or reorder them with the arrows.
+          Products shown in each section are controlled by each section's type (auto-tag, auto-category, or manual list).
+        </p>
+        <div class="a-section-list" id="a-section-list"></div>
+      </div>
+    </div><!-- /panel-sections -->
+
+    <!-- ── Promotions panel ───────────────────────────────── -->
+    <div class="a-panel" id="panel-promotions">
+      <div class="a-card">
+        <div class="a-card-title">Sale Banner</div>
+        <div class="a-form-grid cols-1">
+          <div class="a-field">
+            <label class="a-label" for="promo-banner-text">Banner Text</label>
+            <input class="a-input" id="promo-banner-text" type="text" placeholder="Back-to-School Sale — Up to 30% Off!">
+          </div>
+          <div class="a-field">
+            <div class="a-checkbox-row">
+              <input class="a-checkbox" id="promo-banner-active" type="checkbox">
+              <label class="a-checkbox-label" for="promo-banner-active">Show sale banner in announcement bar</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="a-card">
+        <div class="a-card-title">Featured Tag</div>
+        <div class="a-form-grid cols-1">
+          <div class="a-field">
+            <label class="a-label" for="promo-featured-tag">Tag highlighted on "Sale" nav link</label>
+            <select class="a-select" id="promo-featured-tag">
+              <option value="bestseller">Best Seller</option>
+              <option value="new">New</option>
+              <option value="under15">Under $15</option>
+              <option value="studentpick">Student Pick</option>
+            </select>
+          </div>
+        </div>
+        <div class="a-btn-row">
+          <button class="a-btn a-btn-primary" onclick="savePromotions()">Save Promotions</button>
+        </div>
+      </div>
+    </div><!-- /panel-promotions -->
+
+    <!-- ── Data panel ─────────────────────────────────────── -->
+    <div class="a-panel" id="panel-data">
+      <div class="a-data-grid">
+        <div class="a-data-card">
+          <h3>📤 Export Data</h3>
+          <p>Download all products, categories, sections, and settings as a JSON file. Use this to back up your store data or move it to another device.</p>
+          <button class="a-btn a-btn-primary" onclick="exportData()">Export JSON</button>
+        </div>
+        <div class="a-data-card">
+          <h3>📥 Import Data</h3>
+          <p>Upload a previously exported JSON file to restore or migrate your store data. This will overwrite the current data.</p>
+          <input type="file" id="a-import-file" accept=".json" style="display:none;">
+          <button class="a-btn a-btn-ghost" onclick="importData()">Import JSON</button>
+        </div>
+        <div class="a-data-card">
+          <h3>🔄 Reset to Defaults</h3>
+          <p>Wipe all current data and restore the original 10 demo products, 7 categories, and default settings. Cannot be undone.</p>
+          <button class="a-btn a-btn-danger" onclick="resetToDefaults()">Reset to Demo Data</button>
+        </div>
+      </div>
+    </div><!-- /panel-data -->
+
+  </main><!-- /a-content -->
+</div><!-- /a-shell -->
+
+<!-- ── Product add/edit modal ──────────────────────────────── -->
+<div class="a-modal-overlay" id="a-product-modal">
+  <div class="a-modal">
+    <div class="a-modal-header">
+      <span class="a-modal-title" id="pf-title">Add Product</span>
+      <button class="a-modal-close" onclick="closeProductForm()">✕</button>
+    </div>
+    <input type="hidden" id="pf-id">
+    <div class="a-form-grid">
+      <div class="a-field full">
+        <label class="a-label" for="pf-name">Product Name *</label>
+        <input class="a-input" id="pf-name" type="text" placeholder="Student Desk Reset Kit">
+      </div>
+      <div class="a-field full">
+        <label class="a-label" for="pf-description">Description *</label>
+        <textarea class="a-textarea" id="pf-description" placeholder="Describe the product…"></textarea>
+      </div>
+      <div class="a-field full">
+        <label class="a-label" for="pf-features">Features (one per line)</label>
+        <textarea class="a-textarea" id="pf-features" placeholder="Includes 5 organizer pieces&#10;Fits any standard desk&#10;Easy to rearrange"></textarea>
+      </div>
+      <div class="a-field full">
+        <label class="a-label" for="pf-problemSolved">Why It Helps (problem it solves)</label>
+        <textarea class="a-textarea" id="pf-problemSolved" placeholder="Clutter kills focus. This kit…"></textarea>
+      </div>
+      <div class="a-field">
+        <label class="a-label" for="pf-price">Regular Price *</label>
+        <input class="a-input" id="pf-price" type="number" step="0.01" min="0" placeholder="24.99">
+      </div>
+      <div class="a-field">
+        <label class="a-label" for="pf-salePrice">Sale Price (leave blank for no sale)</label>
+        <input class="a-input" id="pf-salePrice" type="number" step="0.01" min="0" placeholder="19.99">
+      </div>
+      <div class="a-field full">
+        <label class="a-label" for="pf-image">Image URL or relative path</label>
+        <input class="a-input" id="pf-image" type="text" placeholder="images/placeholder.svg">
+      </div>
+      <div class="a-field">
+        <label class="a-label" for="pf-category">Category</label>
+        <select class="a-select" id="pf-category"></select>
+      </div>
+      <div class="a-field">
+        <label class="a-label">Tags</label>
+        <div class="a-tag-checks">
+          <label class="a-tag-check"><input type="checkbox" id="pf-tag-bestseller"> Best Seller</label>
+          <label class="a-tag-check"><input type="checkbox" id="pf-tag-new"> New</label>
+          <label class="a-tag-check"><input type="checkbox" id="pf-tag-under15"> Under $15</label>
+          <label class="a-tag-check"><input type="checkbox" id="pf-tag-studentpick"> Student Pick</label>
+        </div>
+      </div>
+      <div class="a-field">
+        <label class="a-label" for="pf-rating">Rating (0–5)</label>
+        <input class="a-input" id="pf-rating" type="number" step="0.1" min="0" max="5" placeholder="4.5">
+      </div>
+      <div class="a-field">
+        <label class="a-label" for="pf-reviewCount">Review Count</label>
+        <input class="a-input" id="pf-reviewCount" type="number" min="0" placeholder="0">
+      </div>
+      <div class="a-field">
+        <div class="a-checkbox-row">
+          <input class="a-checkbox" id="pf-inStock" type="checkbox" checked>
+          <label class="a-checkbox-label" for="pf-inStock">In Stock</label>
+        </div>
+      </div>
+    </div>
+    <div class="a-btn-row">
+      <button class="a-btn a-btn-primary" onclick="saveProduct()">Save Product</button>
+      <button class="a-btn a-btn-ghost" onclick="closeProductForm()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Toast notification ──────────────────────────────────── -->
+<div class="a-toast" id="a-toast"></div>
+
+<!-- ── Scripts (order: data → store → admin) ─────────────── -->
+<script src="data.js"></script>
+<script src="store.js"></script>
+<script src="admin.js"></script>
+
+</body>
+</html>
